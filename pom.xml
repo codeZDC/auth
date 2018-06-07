@@ -6,13 +6,16 @@
 		<artifactId>codeZ-parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>com.tuzhi</groupId>
 	<artifactId>auth</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
 
 	<dependencies>
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<scope>test</scope>
+			</dependency>
 		<dependency>
 			<groupId>com.tuzhi</groupId>
 			<artifactId>codeZ-common</artifactId>

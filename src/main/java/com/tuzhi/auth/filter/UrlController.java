@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tuzhi.auth.common.Constants;
 import com.tuzhi.auth.mapper.UrlMapper;
 
 /**
@@ -25,13 +26,13 @@ public class UrlController implements UrlControlResolver{
 	@Override
 	public boolean isAccessUrl(HttpServletRequest request) {
 		String path = request.getServletPath();
+		String username = (String)request.getSession().getAttribute(Constants.SESSION_USER);
 		//获取用户的权限列表,判断当前访问路径是否有权限
-		List<String> permissions = urlMapper.getPermissions();
+		List<String> permissions = urlMapper.getPermissions(username);
 		for (String string : permissions) {
 			if(path.equals(string))
 				return true;
 		}
-		
 		System.err.println("用户没有权限访问该地址 : " + path);
 		return false;
 	}

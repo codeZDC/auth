@@ -12,8 +12,8 @@ import org.apache.ibatis.annotations.Select;
 
 public interface UrlMapper {
 	
-	@Select("SELECT resource FROM t_user_resource  WHERE user_id = 1")
-	List<String> getPermissions();
+
+	List<String> getPermissions(String username);
 	
 	
 }
