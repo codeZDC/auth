@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>欢迎登陆</title>
+<style type="text/css">
+	html,body{
+		height: 100%;
+		background-color:darkslategrey;
+		margin: 0;
+	}
+	#login-panel{
+		width: 500px;
+		height: 350px;
+		position: absolute;
+		top: 50%;
+		margin-top: -175px;
+		left: 50%;
+		margin-left: -250px;
+		background-color: beige;
+	}
+	#login-title{
+		font-size: 2em;
+		text-align: center;
+		background-color: aliceblue;
+		height: 70px;
+		line-height: 70px;
+	}
+	#login-body{
+		text-align: center;
+		padding-top: 30px;	
+	}
+	
+</style>
+</head>
+<body>
+	<div id="login-panel">
+		<div id="login-title">欢迎登陆</div>
+		<div id="login-body">
+			<form method="post">
+				<p>用户名 : <input type="text" name="username"/></p>
+				<p>密 &nbsp;&nbsp;码 : <input type="text" name="password"/></p>
+				<p style="color: red"><span id="errorSpan"></span></p>
+				<div style="padding-left: 150px;"><button type="button" id="login_btn">登录</button></div>
+			</form>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="./static/modules/common.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+	$('#login_btn').click(function(){
+		$.ajax({
+			url : contextPath + '/login',
+			type:'post',
+			data:$('form').serialize(),
+			dataType:'json',
+			beforeSend: function () {
+			  if($('[name=username]').val() == '')
+				  return false;
+			  console.log('kaishi');
+			  $('#login_btn').hide();
+			},
+			success:function(res){
+				if(res.success){
+					alert(res.msg);
+				}else{
+				   $('#errorSpan').val(res.msg);
+				}
+			},
+			error:function(e){
+				console.log(e);
+			},
+			complete:function(){
+				console.log('wancheng');
+				  $('#login_btn').show();
+			}
+		});
+		
+	});
+</script>
+</html>

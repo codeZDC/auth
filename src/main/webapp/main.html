@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Document</title>
+<link rel="stylesheet" href="./static/layui/css/layui.css" media="all">
+<link rel="stylesheet" type="text/css"
+	href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
+<style>
+.info-box {
+	height: 85px;
+	background-color: white;
+	background-color: #ecf0f5;
+}
+
+.info-box .info-box-icon {
+	border-top-left-radius: 2px;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 2px;
+	display: block;
+	float: left;
+	height: 85px;
+	width: 85px;
+	text-align: center;
+	font-size: 45px;
+	line-height: 85px;
+	background: rgba(0, 0, 0, 0.2);
+}
+
+.info-box .info-box-content {
+	padding: 5px 10px;
+	margin-left: 85px;
+}
+
+.info-box .info-box-content .info-box-text {
+	display: block;
+	font-size: 14px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	text-transform: uppercase;
+}
+
+.info-box .info-box-content .info-box-number {
+	display: block;
+	font-weight: bold;
+	font-size: 18px;
+}
+
+.major {
+	font-weight: 10px;
+	color: #01AAED;
+}
+
+.main {
+	margin-top: 25px;
+}
+
+.main .layui-row {
+	margin: 10px 0;
+}
+
+.time:BEFORE {
+	content: '创建时间 < ';
+	color: red;
+}
+
+.time:AFTER {
+	content: ' > ';
+	color: red;
+}
+</style>
+</head>
+
+<body>
+	<div class="layui-fluid main">
+		<fieldset class="layui-elem-field layui-field-title site-title">
+			<legend>
+				<a name="use">遵义应急救灾项目开发记录</a>
+			</legend>
+		</fieldset>
+		<div class="layui-row">
+			<div class="layui-col-md12">
+				<ul class="layui-timeline">
+					<li class="layui-timeline-item"><i
+						class="layui-icon layui-timeline-axis">&#xe63f;</i>
+						<div class="layui-timeline-content layui-text">
+							<h3 class="layui-timeline-title">开发任务 :</h3>
+							<ul>
+								<li class="time">2018年6月6日14:25:13</li>
+								<li>遵义应急系统权限系统后台搭建,页面采用layui</li>
+								<li>根据救灾系统完善系统模块</li>
+							</ul>
+						</div></li>
+
+					<li class="layui-timeline-item"><i
+						class="layui-icon layui-timeline-axis">&#xe63f;</i>
+						<div class="layui-timeline-content layui-text">
+							<h3 class="layui-timeline-title">模块搭建与开发 :</h3>
+							<ul>
+								<li class="time">2018年6月6日14:32:44</li>
+								<li>后台采用SSM ,数据库采用MYSQL</li>
+							</ul>
+						</div>
+					</li>
+
+					<li class="layui-timeline-item"><i
+						class="layui-icon layui-timeline-axis">&#xe63f;</i>
+						<div class="layui-timeline-content layui-text">
+							<div class="layui-timeline-title">未完待续...</div>
+						</div></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<script src="./static/layui/layui.js"></script>
+	<script>
+		layui.use('jquery', function() {
+			var $ = layui.jquery;
+			$('#test').on('click', function() {
+				parent.message.show({
+					skin : 'cyan'
+				});
+			});
+		});
+	</script>
+</body>
+
+</html>

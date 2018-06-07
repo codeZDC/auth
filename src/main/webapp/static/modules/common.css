@@ -1,0 +1,14 @@
+body {
+	margin: 5px;
+}
+
+.layui-btn-group {
+	margin-left: 50px;
+}
+
+.hide{
+	display: none;
+}
+.main {
+	margin-top: 25px;
+}

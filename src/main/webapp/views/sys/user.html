@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>table模块快速使用</title>
+<link rel="stylesheet" href="../../static/layui/css/layui.css"
+	media="all">
+<link rel="stylesheet" href="../../static/modules/common.css">
+
+</head>
+<body>
+
+	<div id="data_div" class="main">
+		<fieldset class="layui-elem-field layui-field-title site-title">
+			<legend>
+				<a name="use"> 遵义应急救灾系统用户列表 </a>
+			</legend>
+		</fieldset>
+
+		<div class="layui-btn-group">
+			<button class="layui-btn" id="add_btn">增加</button>
+		</div>
+		<table id="user_table"></table>
+	</div>
+	<div  class="add_div modal hide main">
+		<button class="layui-btn layui-btn-sm layui-btn-normal cancel"><i class="layui-icon">  返回</i></button>
+		<fieldset class="layui-elem-field layui-field-title site-title">
+			<legend>
+				<a name="use"> 添加用户 </a>
+			</legend>
+		</fieldset>
+		
+		<div class="site-text site-block">
+			<form class="layui-form" action="">
+				<div class="layui-form-item">
+					<label class="layui-form-label">用户名</label>
+					<div class="layui-input-inline">
+						<input type="text" name="realname" 
+							lay-verify="required" placeholder="请输入密码"
+							autocomplete="off" class="layui-input">
+					</div>
+					<div class="layui-form-mid layui-word-aux">辅助文字</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">备注</label>
+					<div class="layui-input-inline">
+						<input type="description" name="description" 
+							lay-verify="required" lay-vertype="tips" placeholder="请输入密码"
+							autocomplete="off" class="layui-input">
+					</div>
+					<div class="layui-form-mid layui-word-aux">辅助文字</div>
+				</div>
+
+				<div class="layui-form-item">
+					<div class="layui-input-block">
+						<button type="button" class="layui-btn" lay-submit="" lay-filter="add_submit">立即提交</button>
+						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+					</div>
+				</div>
+			</form>
+		</div>
+
+	</div>
+
+	<!-- 工具栏  -->
+	<div id="toolBar" style="display: none;">
+		<a class="layui-btn layui-btn-disabled layui-btn-xs view_btn"
+			onclick="javascript:;">查看</a> <a class="layui-btn layui-btn-xs edit_btn"
+			lay-event="edit">编辑</a> <a
+			class="layui-btn layui-btn-danger layui-btn-xs del_btn" lay-event="del">删除</a>
+	</div>
+
+	<script src="../../static/layui/layui.js"></script>
+	<script src="../../static/jquery/1.9.1/jquery.min.js"></script>
+	<script src="../../static/modules/common.js"></script>
+	<script type="text/javascript" src="user.js"></script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>登录</title>
+<link rel="stylesheet" href="static/layui2/css/layui.css" media="all" />
+<link rel="stylesheet" href="static/modules/home/login.css" />
+</head>
+
+<body class="beg-login-bg">
+	<div class="beg-login-box">
+		<header>
+			<h1>权限管理后台登录</h1>
+		</header>
+		<div class="beg-login-main">
+			<form class="layui-form">
+				<input name="__RequestVerificationToken" type="hidden"
+					value="fkfh8D89BFqTdrE2iiSdG_L781RSRtdWOH411poVUWhxzA5MzI8es07g6KPYQh9Log-xf84pIR2RIAEkOokZL3Ee3UKmX0Jc8bW8jOdhqo81" />
+				<div class="layui-form-item">
+					<label class="beg-login-icon"> <i class="layui-icon">&#xe612;</i>
+					</label> <input type="text" name="username" value="1"
+						autocomplete="off" placeholder="这里输入登录名" class="layui-input">
+				</div>
+				<div class="layui-form-item">
+					<label class="beg-login-icon"> <i class="layui-icon">&#xe642;</i>
+					</label> <input type="password" name="password" value="1"
+						autocomplete="off" placeholder="这里输入密码" class="layui-input">
+				</div>
+				<div id="errorSpan" style="color: red"></div>
+				<div class="layui-form-item">
+					<div class="beg-pull-left beg-login-remember">
+						<label>记住帐号？</label> <input type="checkbox" name="rememberMe"
+							value="true" lay-skin="switch" checked title="记住帐号">
+					</div>
+					<div class="beg-pull-right">
+						<button type="button" class="layui-btn layui-btn-primary"
+							id="login_btn">
+							<i class="layui-icon">&#xe650;</i> 登录
+						</button>
+					</div>
+					<div class="beg-clear"></div>
+				</div>
+			</form>
+		</div>
+		<footer>
+			<p>图智科技 ©</p>
+		</footer>
+	</div>
+	<script type="text/javascript" src="static/layui/layui.js"></script>
+	<script type="text/javascript" src="static/jquery/1.9.1/jquery.min.js"></script>
+	<script type="text/javascript" src="static/modules/common.js"></script>
+
+	<script>
+		layui.use([ 'form' ]);
+		$('#login_btn').click(function() {
+			$.ajax({
+				url : contextPath + '/login',
+				type : 'post',
+				data : $('form').serialize(),
+				dataType : 'json',
+				beforeSend : function() {
+					if ($('[name=username]').val() == '') {
+						$('#errorSpan').text('用户名不能为空!');
+						setTimeout("$('#errorSpan').text('')", 1000);
+						return false;
+					}
+					$('#login_btn').hide();
+				},
+				success : function(res) {
+					if (res.success) {
+
+						var href = self.location.href;
+						location.href = contextPath + href.substr(href.indexOf("?")+1)
+						//location.reload();
+					} else {
+						$('#errorSpan').text(res.msg);
+						setTimeout("$('#errorSpan').text('')", 1000);
+					}
+				},
+				error : function(e) {
+					alert('error');
+					console.log(e);
+				},
+				complete : function() {
+					console.log('完成登录!');
+					$('#login_btn').show();
+				}
+			});
+		});
+
+		$("body").keydown(function() {
+			if (event.keyCode == "13") {//keyCode=13是回车键
+				$('#login_btn').click();
+			}
+		});
+	</script>
+</body>
+</html>
