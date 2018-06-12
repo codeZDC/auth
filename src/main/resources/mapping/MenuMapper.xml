@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tuzhi.auth.mapper.IMenuMapper">
+  <resultMap id="MenuResultMap" type="com.tuzhi.auth.domain.Menu">
+        <id column="id" property="id" />
+    <result column="name" property="name" />
+    <result column="ico" property="ico" />
+    <result column="description" property="description" />
+    <result column="pid" property="pid" />
+    <result column="order_by" property="orderBy" />
+  </resultMap>
+  <resultMap id="extMap" type="com.tuzhi.auth.domain.ext.MenuExt" extends="MenuResultMap">
+    <result column="pname" property="pname" />
+  </resultMap>
+  <resultMap type="com.tuzhi.auth.common.MenuNode" id="menuNodeMap">
+  		<id column="id" property="id" />
+	    <result column="name" property="name" />
+	    <result column="ico" property="ico" />
+	    <result column="url" property="url" />
+  		<collection property="children" ofType="com.tuzhi.auth.common.MenuNode">
+			 <id column="cid" property="id" />
+		    <result column="cname" property="name" />
+		    <result column="cico" property="ico" />
+		    <result column="curl" property="url" />
+  		</collection>
+  </resultMap>
+  <sql id="column_Where">
+  	<trim prefix="WHERE" prefixOverrides="AND|OR">
+    	    	<if test="id != null">and m.id=#{id}</if>
+    	<if test="name != null and name != '' ">and m.name=#{name}</if>
+    	<if test="ico != null and ico != '' ">and m.ico=#{ico}</if>
+    	<if test="description != null and description != '' ">and m.description=#{description}</if>
+    	<if test="pid != null">and m.pid=#{pid}</if>
+    	<if test="orderBy != null">and m.order_by=#{orderBy}</if>
+    </trim>
+  </sql>
+  <sql id="column_List">
+    m.id,m.name,m.ico,m.description,m.pid,m.order_by
+  </sql>
+  
+  <!--
+  	功能：分页查询
+  -->
+  <select id="findMenuList" parameterType="com.tuzhi.auth.domain.Menu" resultMap="extMap">
+    select	<include refid="column_List" /> ,p.name pname
+    from t_menu  m 
+    LEFT JOIN t_menu p ON m.`pid` = p.`id`
+    <include refid="column_Where" />
+    <if test="sortOrder !=null and sortOrder !='' and sortName != null and sortName != ''">
+    	order by 
+    	    	<if test="'id' == sortName">  m.id ${sortOrder } </if>
+    	<if test="'name' == sortName">  m.name ${sortOrder } </if>
+    	<if test="'ico' == sortName">  m.ico ${sortOrder } </if>
+    	<if test="'description' == sortName">  m.description ${sortOrder } </if>
+    	<if test="'pid' == sortName">  m.pid ${sortOrder } </if>
+    	<if test="'orderBy' == sortName">  m.order_by ${sortOrder } </if>
+    </if>
+    <if test="sortOrder ==null or sortOrder ==''">
+    	order by m.order_by
+    </if>
+  </select>
+  
+  <!-- 根据pid获取菜单,当pid为0即获取一级菜单 -->
+  <select id="getMenusByPid" resultType="java.util.LinkedHashMap">
+	SELECT id ,`name` FROM t_menu 
+	<if test="pid != null">
+		where pid = #{pid}
+	</if>
+	order by order_by
+  </select>
+  
+  <!-- 获取二级菜单或没有子菜单的菜单 -->
+  <select id="getSecondMenus" resultType="java.util.LinkedHashMap">
+	SELECT id ,`name` FROM t_menu m 
+	WHERE NOT EXISTS (SELECT 1 FROM t_menu WHERE pid = m.id)
+	order by m.order_by
+  </select>
+  
+  <select id="getHomeMenu" resultMap="menuNodeMap">
+		
+  </select>
+</mapper>

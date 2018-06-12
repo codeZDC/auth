@@ -8,6 +8,10 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>登录</title>
+<script>
+if(self != top)
+	top.location.href = self.location.href
+</script>
 <link rel="stylesheet" href="static/layui2/css/layui.css" media="all" />
 <link rel="stylesheet" href="static/modules/home/login.css" />
 </head>
@@ -75,7 +79,8 @@
 					if (res.success) {
 
 						var href = self.location.href;
-						location.href = contextPath + href.substr(href.indexOf("?")+1)
+						var index = href.indexOf("?/");
+						location.href = contextPath + (index==-1?'/index':href.substr(index+1))
 						//location.reload();
 					} else {
 						$('#errorSpan').text(res.msg);

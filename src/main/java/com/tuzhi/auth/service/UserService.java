@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.tuzhi.auth.mapper.IUserMapper;
+import com.tuzhi.auth.common.MenuNode;
 import com.tuzhi.auth.domain.User;
+import com.tuzhi.auth.domain.ext.UserExt;
 
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.entity.Example.Criteria;
@@ -56,6 +58,11 @@ public class UserService {
 		Criteria c = example.createCriteria();
 		c.andIn("id", userArr);
 		return userMapper.deleteByExample(example) > 0;
+	}
+
+	public UserExt getUserByUsername(String username) {
+		// TODO Auto-generated method stub
+		return userMapper.getUserByUsername(username);
 	}
 
 }

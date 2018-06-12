@@ -50,7 +50,7 @@ public class Res {
 	}
 
 	public static Res success(){
-		return  new Res(true,null);
+		return  new Res(true,"操作成功");
 	}
 	
 	public static Res success(Object data){

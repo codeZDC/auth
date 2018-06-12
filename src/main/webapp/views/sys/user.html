@@ -20,7 +20,7 @@
 		<div class="layui-btn-group">
 			<button class="layui-btn" id="add_btn">增加</button>
 		</div>
-		<table id="user_table"></table>
+		<table id="data_table"></table>
 	</div>
 	<div  class="add_div modal hide main">
 		<button class="layui-btn layui-btn-sm layui-btn-normal cancel"><i class="layui-icon">  返回</i></button>
@@ -45,7 +45,7 @@
 					<label class="layui-form-label">备注</label>
 					<div class="layui-input-inline">
 						<input type="description" name="description" 
-							lay-verify="required" lay-vertype="tips" placeholder="请输入密码"
+							lay-verify="required" lay-vertype="tips" placeholder="请输入描述"
 							autocomplete="off" class="layui-input">
 					</div>
 					<div class="layui-form-mid layui-word-aux">辅助文字</div>
@@ -64,10 +64,9 @@
 
 	<!-- 工具栏  -->
 	<div id="toolBar" style="display: none;">
-		<a class="layui-btn layui-btn-disabled layui-btn-xs view_btn"
-			onclick="javascript:;">查看</a> <a class="layui-btn layui-btn-xs edit_btn"
-			lay-event="edit">编辑</a> <a
-			class="layui-btn layui-btn-danger layui-btn-xs del_btn" lay-event="del">删除</a>
+		<a class="layui-btn layui-btn-disabled layui-btn-xs view_btn">查看</a> 
+		<a class="layui-btn layui-btn-xs edit_btn">编辑</a> 
+		<a class="layui-btn layui-btn-danger layui-btn-xs del_btn">删除</a>
 	</div>
 
 	<script src="../../static/layui/layui.js"></script>

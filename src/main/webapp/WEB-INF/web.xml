@@ -4,10 +4,20 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	id="WebApp_ID" version="2.5">
 
-		<!-- 设置一个不存在的路径,才会请求到 -->
+	<!-- 设置一个不存在的路径,才会请求到 -->
 	<welcome-file-list>
-		<welcome-file>index</welcome-file>
+		<welcome-file>/login.html</welcome-file>
 	</welcome-file-list>
+	
+	<error-page>
+		<error-code>401</error-code>
+		<location>/login.html</location>
+	</error-page>
+	<error-page>
+		<error-code>403</error-code>
+		<location>/403.html</location>
+	</error-page>
+
 
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -21,13 +31,13 @@
 		<filter-name>authFilter</filter-name>
 		<filter-class>com.tuzhi.auth.filter.AuthFilter</filter-class>
 		<init-param>
-			<description>不需要验证的路径$匹配结尾,^匹配开始</description>
+			<description>不需要验证的路径,$a匹配以a开头的路径,b$匹配以b结尾的路径</description>
 			<param-name>excludes</param-name>
-			<param-value>^qianzhui,login,logout$,static</param-value>
+			<param-value>$zz,login,logout$,/static/,/admin</param-value>
 		</init-param>
 		<init-param>
 			<param-name>urlControl</param-name>
-			<param-value>true</param-value>
+			<param-value>false</param-value>
 		</init-param>
 	</filter>
 	<filter-mapping>
@@ -91,10 +101,4 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
-
-
-	<error-page>
-		<error-code>503</error-code>
-		<location>/503.html</location>
-	</error-page>
 </web-app>	

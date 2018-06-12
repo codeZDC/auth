@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tuzhi.auth.mapper.IRoleMapper">
+  <resultMap id="RoleResultMap" type="com.tuzhi.auth.domain.Role">
+        <id column="id" property="id" />
+    <result column="name" property="name" />
+    <result column="type" property="type" />
+    <result column="description" property="description" />
+
+  </resultMap>
+  <sql id="column_Where">
+  	<trim prefix="WHERE" prefixOverrides="AND|OR">
+    	    	<if test="id != null and id != '' ">and id=#{id}</if>
+    	<if test="name != null and name != '' ">and name=#{name}</if>
+    	<if test="type != null">and type=#{type}</if>
+    	<if test="description != null and description != '' ">and description=#{description}</if>
+
+    </trim>
+  </sql>
+  <sql id="column_List">
+    id,name,type,description
+  </sql>
+  
+  <!--
+  	功能：分页查询
+  -->
+  <select id="findRoleList" parameterType="com.tuzhi.auth.domain.Role" resultMap="RoleResultMap">
+    select	<include refid="column_List" />
+    from role
+    <include refid="column_Where" />
+    <if test="sortOrder !=null and sortOrder !='' and sortName != null and sortName != ''">
+    	order by 
+    	    	<if test="'id' == sortName">  id ${sortOrder } </if>
+    	<if test="'name' == sortName">  name ${sortOrder } </if>
+    	<if test="'type' == sortName">  type ${sortOrder } </if>
+    	<if test="'description' == sortName">  description ${sortOrder } </if>
+    </if>
+  </select>
+
+	<!-- 获取角色权限 -->  
+  <select id="getRoleResources" resultType="com.tuzhi.auth.common.TreeNode">
+  	SELECT order_by,id ,`name`,pid,-1 role_id FROM t_menu m
+	UNION ALL
+	SELECT r.order_by,r.id,r.name,r.menu_id pid,rr.`role_id` FROM t_resource r
+		LEFT JOIN t_role_resource rr ON rr.`resource_id`=r.`id` AND rr.`role_id`=#{zdc}
+		ORDER BY order_by
+  </select>
+  <insert id="setRoleResources">
+  		INSERT INTO t_role_resource (role_id , resource_id) 
+  		<foreach collection="param2" open="values" separator="," item="reid">
+  			(#{param1},#{reid})
+  		</foreach>
+  </insert>
+  
+</mapper>

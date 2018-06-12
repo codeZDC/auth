@@ -96,14 +96,17 @@ public abstract class ZFilter implements Filter {
 	private boolean isExcludes(HttpServletRequest request) {
 
 		String path = request.getServletPath();
-		
+		String temp = "" ;
 		if (excludes != null) {
 			for (String exclude : excludes) {
-				if (exclude.contains("^")) {
-					if (path.startsWith(exclude.substring(1)))
+					
+				if (exclude.contains("$")) {
+					//替换通用匹配符
+					temp  = exclude.replace("$", "");
+					//判断是起始匹配 还是 结束匹配
+					if (exclude.startsWith("$") && path.startsWith(temp.startsWith("/")?temp:"/"+temp))
 						return true;
-				} else if (exclude.contains("$")) {
-					if (path.endsWith(exclude.replace("$", "")))
+					else if (exclude.endsWith("$") && path.endsWith(temp))
 						return true;
 				} else {
 					if (path.contains(exclude))

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tuzhi.auth.mapper.IResourceMapper">
+  <resultMap id="extMap" type="com.tuzhi.auth.domain.ext.ResourceExt">
+    <id column="id" property="id" />
+    <result column="name" property="name" />
+    <result column="url" property="url" />
+    <result column="is_menu_url" property="isMenuUrl" />
+    <result column="menu_id" property="menuId" />
+    <result column="order_by" property="orderBy" />
+    <result column="pmenuName" property="pmenuName" />
+  </resultMap>
+  <sql id="column_Where">
+  	<trim prefix="WHERE" prefixOverrides="AND|OR">
+    	    	<if test="id != null">and r.id=#{id}</if>
+    	<if test="searchText != null and searchText != '' ">and (r.name like '%${searchText}%' or m.name like '%${searchText}%')</if>
+    	<if test="name != null and name != '' ">and r.name=#{name}</if>
+    	<if test="url != null and url != '' ">and r.url=#{url}</if>
+    	<if test="isMenuUrl != null and isMenuUrl != '' ">and r.is_menu_url=#{isMenuUrl}</if>
+    	<if test="menuId != null">and r.menu_id=#{menuId}</if>
+    	<if test="orderBy != null">and r.order_by=#{orderBy}</if>
+    </trim>
+  </sql>
+  <sql id="column_List">
+    id,name,url,is_menu_url,menu_id,order_by
+  </sql>
+  <sql id="column_List_r">
+    r.id,r.name,r.url,r.is_menu_url,r.menu_id,r.order_by
+  </sql>
+  
+  <!--
+  	功能：分页查询
+  -->
+  <select id="findResourceList" parameterType="com.tuzhi.auth.domain.Resource" resultMap="extMap">
+    select	<include refid="column_List_r" />,m.name pmenuName
+    from t_resource r 
+    LEFT JOIN t_menu m ON m.`id`=r.`menu_id`
+    <include refid="column_Where" />
+    <if test="sortOrder !=null and sortOrder !='' and sortName != null and sortName != ''">
+    	order by 
+    	    	<if test="'id' == sortName">  r.id ${sortOrder } </if>
+    	<if test="'name' == sortName">  r.name ${sortOrder } </if>
+    	<if test="'url' == sortName">  r.url ${sortOrder } </if>
+    	<if test="'isMenuUrl' == sortName">  r.is_menu_url ${sortOrder } </if>
+    	<if test="'menuId' == sortName">  r.menu_id ${sortOrder } </if>
+    	<if test="'orderBy' == sortName">  r.order_by ${sortOrder } </if>
+    </if>
+    <if test="sortOrder ==null or sortOrder ==''">
+    	order by r.order_by
+    </if>
+  </select>
+  
+</mapper>

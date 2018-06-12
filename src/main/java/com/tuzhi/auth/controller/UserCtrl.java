@@ -72,7 +72,7 @@ public class UserCtrl extends BaseCtrl {
 		Map<String, Object> map = new HashMap<String, Object>();
 		boolean flag = userService.saveUser(user);
 		map.put("success", flag);
-		map.put("message", "新增"+(flag?"成功":"失败"));
+		map.put("msg", "新增"+(flag?"成功":"失败"));
 		return map;
 	}
 	
@@ -90,7 +90,7 @@ public class UserCtrl extends BaseCtrl {
 		Map<String, Object> map = new HashMap<String, Object>();
 		boolean flag = userService.editUser(user);
 		map.put("success", flag);
-		map.put("message", "修改"+(flag?"成功":"失败"));
+		map.put("msg", "修改"+(flag?"成功":"失败"));
 		return map;
 	}
 	
@@ -108,7 +108,7 @@ public class UserCtrl extends BaseCtrl {
 		Map<String, Object> map = new HashMap<String, Object>();
 		boolean flag = userService.delUser(ids);
 		map.put("success", flag);
-		map.put("message", "删除"+(flag?"成功":"失败"));
+		map.put("msg", "删除"+(flag?"成功":"失败"));
 		return map;
 	}
 }

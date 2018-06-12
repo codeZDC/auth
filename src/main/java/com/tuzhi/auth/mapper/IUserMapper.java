@@ -3,6 +3,7 @@ package com.tuzhi.auth.mapper;
 import java.util.List;
 
 import com.tuzhi.auth.domain.User;
+import com.tuzhi.auth.domain.ext.UserExt;
 
 import tk.mybatis.mapper.common.Mapper;
 
@@ -22,5 +23,7 @@ public interface IUserMapper extends Mapper<User> {
 	 * @CreateDate  2018-06-06 15:13:12
 	 */
 	List<User> findUserList(User user);
+
+	UserExt getUserByUsername(String username);
 	
 }

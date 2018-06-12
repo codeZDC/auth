@@ -11,7 +11,12 @@
     <result column="birth" property="birth" />
     <result column="email" property="email" />
     <result column="description" property="description" />
-
+  </resultMap>
+  <resultMap type="com.tuzhi.auth.domain.ext.UserExt" id="extMap" extends="UserResultMap">
+    <result column="roleId" property="roleId" />
+    <result column="roleName" property="roleName" />
+    <result column="account" property="account" />
+    <result column="password" property="password" />
   </resultMap>
   <sql id="column_Where">
   	<trim prefix="WHERE" prefixOverrides="AND|OR">
@@ -29,6 +34,9 @@
   </sql>
   <sql id="column_List">
     id,realname,sex,status,tel,registtime,birth,email,description
+  </sql>
+  <sql id="column_List_u">
+    u.realname,u.sex,u.status,u.tel,u.registtime,u.birth,u.email,u.description
   </sql>
   
   <!--
@@ -51,7 +59,14 @@
     	<if test="'email' == sortName">  email ${sortOrder } </if>
     	<if test="'description' == sortName">  description ${sortOrder } </if>
     </if>
-    
   </select>
   
+  <!-- 根据username获取用户信息 -->
+  <select id="getUserByUsername" parameterType="string" resultMap="extMap">
+		SELECT a.`UserName` account,a.`Password` `password`,r.`Id` roleId,r.`Name` roleName,
+		<include refid="column_List_u" />
+		FROM account a ,USER u ,user_role ur ,role r
+		WHERE a.`UserId` = u.`Id` AND ur.`UserId` = u.`Id` 
+		AND ur.`roleId` = r.`Id`  AND a.`UserName`= #{username}
+  </select>
 </mapper>

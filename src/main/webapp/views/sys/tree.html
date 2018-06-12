@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<HTML>
+
+	<HEAD>
+		<TITLE> ZTREE DEMO - Custom Icon </TITLE>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<link rel="stylesheet" href="../../static/tree/zTreeStyle.css" type="text/css">
+		<link rel="stylesheet" href="../../static/tree/metroStyle/metroStyle.css" type="text/css">
+		<script type="text/javascript" src="../../static/jquery/1.9.1/jquery.min.js"></script>
+		<script type="text/javascript" src="../../static/tree/jquery.ztree.all.js"></script>
+		<SCRIPT type="text/javascript">
+			var setting = {
+				data: {
+					simpleData: {
+						enable: true,
+						idKey: "id",
+						pIdKey: "pId",
+						rootPId: null
+					}
+				},
+				check: {
+					enable: true,
+					chkStyle: "checkbox"
+				}
+			};
+
+			var zNodes = [{
+					id: 0,
+					name: "档案管理",
+					open: true
+				}, {
+					id: 1,
+					pId: 0,
+					name: "移动编目",
+					open: false
+				}, {
+					id: 2,
+					pId: 0,
+					name: "性能测试",
+					open: true
+				}, {
+					id: 3,
+					pId: 0,
+					name: "单表(介质关联)",
+					open: false
+				},{
+					id: 4,
+					pId: 2,
+					name: "卫星影像",
+					open: false
+				},{
+					id: 5,
+					pId: 2,
+					name: "大文件量",
+					open: false
+				},
+
+			];
+
+		
+			$(document).ready(function() {
+				$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+			});
+
+		</SCRIPT>
+		<style type="text/css">
+
+		</style>
+	</HEAD>
+
+	<BODY>
+		<div class="content_wrap" style="margin-left: 100px;margin-top: 400px;">
+			<div class="zTreeDemoBackground center">
+				<ul id="treeDemo" class="ztree"></ul>
+			</div>
+		</div>
+	</BODY>
+
+</HTML>

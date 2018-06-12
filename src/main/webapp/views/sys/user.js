@@ -4,7 +4,7 @@ layui.use('table', function() {
 
 	// 第一个实例
 	option = {
-			elem : '#user_table',
+			elem : '#data_table',
 			height : 400,
 			url : path + '/user/list' // 数据接口
 			,
@@ -52,10 +52,6 @@ $('.cancel').click(function(){
 	$('#data_div').show();
 	$('.modal').hide();
 })
-$('.edit_btn,.view_btn,.del_btn').click(function(){
-	lay.msg('功能升级中...');
-});
-$('.edit_btn').click(function(){
-	alert();
-	lay.msg('功能升级中...');
+$(document).on('click','.edit_btn,.view_btn,.del_btn',function(){
+	layer.msg('功能升级中...');
 });

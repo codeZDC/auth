@@ -1,10 +1,184 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../static/layui/css/layui.css"
+	media="all">
+<link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
+<link rel="stylesheet" href="../../static/modules/common.css">
+<style type="text/css">
+	.icon-span.layui-layer-close{
+		display: inline-block;
+	    border: 1px solid #ddd;
+	    padding: 6px 20px;
+	    font-size: 20px;
+	    margin: 6px;
+	    position: relative;
+	}
+	.icon-span:hover{
+		  opacity: 1;
+		  -moz-transform: scale(1.2);
+		  -webkit-transform: scale(1.2);
+		  -o-transform: scale(1.2);
+		  -ms-transform: scale(1.2);
+		  transform: scale(1.2);
+		background: #ddd;
+	}
+	.icon-div{
+		user-select: none;
+	}
+</style>
 </head>
 <body>
 
+	<div id="data_div" class="main ">
+		<fieldset class="layui-elem-field layui-field-title site-title">
+			<legend>
+				<a name="use"> 遵义应急救灾系统菜单列表 </a>
+			</legend>
+		</fieldset>
+
+		<div class="layui-btn-group">
+			<button class="layui-btn" id="add_btn">增加</button>
+		</div>
+		<table id="data_table"></table>
+	</div>
+	<!-- 添加 -->
+	<div id="add_div" class="modal hide main">
+		<button class="layui-btn layui-btn-sm layui-btn-normal cancel"><i class="layui-icon">  返回</i></button>
+		<fieldset class="layui-elem-field layui-field-title site-title">
+			<legend>
+				<a name="use"> 添加菜单 </a>
+			</legend>
+		</fieldset>
+		<div class="site-text site-block">
+			<form id="add_form">
+				<div class="layui-form-item">
+					<label class="layui-form-label">菜单名称</label>
+					<div class="layui-input-inline">
+						<input type="text" check="菜单名称" name="name"placeholder="请输入菜单名称" maxlength="16"
+							autocomplete="off" class="layui-input">
+					</div>
+					<div class="layui-form-mid layui-word-aux">*</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">图标</label>
+					<div class="layui-input-inline" style="padding: 9px 0px;">
+						<button type="button" class="layui-btn layui-btn-xs chooseIco">点击选择图标</button>
+						<span class="show-icon" style="margin-left: 20px;font-size: 16px;color: darkviolet;"></span>
+						<input type="text" name="ico" check="图标" class="hide">
+					</div>
+					<div class="layui-form-mid layui-word-aux">*</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">父菜单</label>
+					<div class="layui-input-inline layui-form-select">
+						<select name="pid" check="父菜单" class="layui-input">
+				        	<option value="">--请选择--</option>
+				        	<option value="0">无</option>
+				        </select>
+					</div>
+					<div class="layui-form-mid layui-word-aux">*</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">排序号(整数)</label>
+					<div class="layui-input-inline">
+						<input type="text" name="orderBy" check="排序号-tinyint" placeholder="请输入1-125的排序号" maxlength="3"
+							autocomplete="off" class="layui-input">
+					</div>
+					<div class="layui-form-mid layui-word-aux">*</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">描述</label>
+					<div class="layui-input-inline">
+						<textarea class="layui-textarea" name="description" maxlength="50"></textarea>
+					</div>
+					<div class="layui-form-mid layui-word-aux">*</div>
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-input-block">
+						<button type="button" class="layui-btn active"  id="submit_btn_a">立即提交</button>
+						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<!-- 添加↑ -->
+	<!-- 编辑↓ -->
+	<div id="edit_div" class="modal hide main">
+		<button class="layui-btn layui-btn-sm layui-btn-normal cancel"><i class="layui-icon">  返回</i></button>
+		<fieldset class="layui-elem-field layui-field-title site-title">
+			<legend>
+				<a name="use"> 编辑菜单 </a>
+			</legend>
+		</fieldset>
+		<div class="site-text site-block">
+			<form id="edit_form">
+				<input type="hidden" name="id">
+				<div class="layui-form-item">
+					<label class="layui-form-label">菜单名称</label>
+					<div class="layui-input-inline">
+						<input type="text" check="菜单名称" name="name"placeholder="请输入菜单名称" maxlength="16"
+							autocomplete="off" class="layui-input">
+					</div>
+					<div class="layui-form-mid layui-word-aux">*</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">图标</label>
+					<div class="layui-input-inline" style="padding: 9px 0px;">
+						<button type="button" class="layui-btn layui-btn-xs chooseIco">点击选择图标</button>
+						<span class="show-icon" style="margin-left: 20px;font-size: 16px;color: darkviolet;"></span>
+						<input type="text" name="ico" check="图标" class="hide">
+					</div>
+					<div class="layui-form-mid layui-word-aux">*</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">父菜单</label>
+					<div class="layui-input-inline layui-form-select">
+						<select name="pid" check="父菜单" class="layui-input">
+				        	<option value="">--请选择--</option>
+				        	<option value="0">无</option>
+				        </select>
+					</div>
+					<div class="layui-form-mid layui-word-aux">*</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">排序号(整数)</label>
+					<div class="layui-input-inline">
+						<input type="text" name="orderBy" check="排序号-tinyint" placeholder="请输入1-125的排序号" maxlength="3"
+							autocomplete="off" class="layui-input">
+					</div>
+					<div class="layui-form-mid layui-word-aux">*</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">描述</label>
+					<div class="layui-input-inline">
+						<textarea class="layui-textarea" name="description" maxlength="50"></textarea>
+					</div>
+					<div class="layui-form-mid layui-word-aux">*</div>
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-input-block">
+						<button type="button" class="layui-btn active"  id="submit_btn_e">立即提交</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<!-- 编辑↑ -->
+	
+	<!-- 工具栏  -->
+	<div id="toolBar" style="display: none;">
+		<a class="layui-btn layui-btn-disabled layui-btn-xs view_btn">查看</a>
+		<a class="layui-btn layui-btn-xs edit_btn">编辑</a>
+		<a class="layui-btn layui-btn-danger layui-btn-xs del_btn">删除</a>
+	</div>
+
+	<script src="../../static/layui/layui.js"></script>
+	<script src="../../static/modules/common.js"></script>
+	<script src="../../static/jquery/1.9.1/jquery.min.js"></script>
+	<script type="text/javascript" src="../../static/modules/zUtil.js"></script>
+	<script type="text/javascript" src="menu.js"></script>
 </body>
 </html>

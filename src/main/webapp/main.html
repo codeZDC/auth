@@ -107,6 +107,35 @@
 							</ul>
 						</div>
 					</li>
+					
+					<li class="layui-timeline-item"><i
+						class="layui-icon layui-timeline-axis">&#xe63f;</i>
+						<div class="layui-timeline-content layui-text">
+							<h3 class="layui-timeline-title">权限模块开发 :</h3>
+							<ul>
+								<li class="time">2018年6月7日16:49:48</li>
+								<li>已通过测试,使用自定义权限对资源进行登录拦截和权限拦截</li>
+								<li>我们只需要控制主要的url权限,由于路径的串用,比如在菜单列表需要获取
+									父级菜单,所以我们将
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li class="layui-timeline-item"><i
+						class="layui-icon layui-timeline-axis">&#xe63f;</i>
+						<div class="layui-timeline-content layui-text">
+							<h3 class="layui-timeline-title">开发中的难点 :</h3>
+							<ul>
+								<li class="time">2018年6月8日11:46:55</li>
+								<li>我们只需要控制主要的url权限,由于路径的串用,比如在菜单列表需要获取
+									父级菜单,所以我们将其访问路径加上/admin,让其过滤,没必要在权限处理
+								</li>
+								<li>由于要实现动静分离,我们已经不能控制html访问了,因为nginx处理了,我们只能通过ajax中的statusCode处理403
+									我已经修改了jquery中的statusCode默认处理403状态,但是在layui中获取数据列表的时候还没处理,稍后处理一下
+								</li>
+							</ul>
+						</div>
+					</li>
 
 					<li class="layui-timeline-item"><i
 						class="layui-icon layui-timeline-axis">&#xe63f;</i>

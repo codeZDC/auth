@@ -5,6 +5,9 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.tuzhi.auth.common.Constants;
 
 /**
@@ -15,6 +18,8 @@ import com.tuzhi.auth.common.Constants;
 
 public class AuthFilter extends ZFilter {
 
+	private Logger Logger = LoggerFactory.getLogger(this.getClass());
+	
 	@Override
 	public boolean isAccessAllowed(HttpServletRequest request, HttpServletResponse response) {
 		UrlControlResolver resolver = getBean(UrlControlResolver.class);
@@ -24,9 +29,10 @@ public class AuthFilter extends ZFilter {
 	@Override
 	public void onAccessDenied(HttpServletRequest request, HttpServletResponse response) {
 		try {
-			response.sendError(503);
+			response.sendError(403);
 		} catch (IOException e) {
-			System.err.println("权限设置503错误!");
+			Logger.error("用户访问了没有权限的目录,设置状态码403的时候出现错误!");
+			Logger.error(e.getMessage());
 		}
 	}
 
@@ -35,9 +41,10 @@ public class AuthFilter extends ZFilter {
 	public void toLogin(HttpServletRequest request, HttpServletResponse response) {
 		try {
 			response.sendRedirect(request.getContextPath() + "/login.html?" +request.getServletPath() );
-			//request.getRequestDispatcher("/login.html").forward(request, response);
+			//request.getRequestDispatcher("/login.html").forward(request, response);//这样处理就会存在页面相对路径不对头
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error("转发到登录页面发生错误!");
+			Logger.error(e.getMessage());
 		} 
 	}
 
