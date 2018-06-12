@@ -31,6 +31,4 @@ public interface IMenuMapper extends Mapper<Menu> {
 
 	List<Map> getSecondMenus();
 
-	List<MenuNode> getHomeMenu(String roleId);
-	
 }

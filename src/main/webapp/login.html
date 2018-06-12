@@ -27,12 +27,12 @@ if(self != top)
 					value="fkfh8D89BFqTdrE2iiSdG_L781RSRtdWOH411poVUWhxzA5MzI8es07g6KPYQh9Log-xf84pIR2RIAEkOokZL3Ee3UKmX0Jc8bW8jOdhqo81" />
 				<div class="layui-form-item">
 					<label class="beg-login-icon"> <i class="layui-icon">&#xe612;</i>
-					</label> <input type="text" name="username" value="1"
+					</label> <input type="text" name="username" value="admin"
 						autocomplete="off" placeholder="这里输入登录名" class="layui-input">
 				</div>
 				<div class="layui-form-item">
 					<label class="beg-login-icon"> <i class="layui-icon">&#xe642;</i>
-					</label> <input type="password" name="password" value="1"
+					</label> <input type="password" name="password" value="123"
 						autocomplete="off" placeholder="这里输入密码" class="layui-input">
 				</div>
 				<div id="errorSpan" style="color: red"></div>
@@ -63,7 +63,7 @@ if(self != top)
 		layui.use([ 'form' ]);
 		$('#login_btn').click(function() {
 			$.ajax({
-				url : contextPath + '/login',
+				url : contextPath + '/admin/login',
 				type : 'post',
 				data : $('form').serialize(),
 				dataType : 'json',

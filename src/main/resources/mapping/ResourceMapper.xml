@@ -50,4 +50,13 @@
     </if>
   </select>
   
+  	<cache/>
+  	<select id="getPermissions" resultType="String">
+		SELECT  r.url FROM t_role_resource rr ,t_resource r 
+		WHERE r.id = rr.resource_id AND rr.role_id = #{zdc}
+	</select>
+	<update id="deleteRoleResources" flushCache="true">
+		delete from t_role_resource where role_id = #{zdc}
+	</update>
+  
 </mapper>

@@ -30,6 +30,7 @@ public class AuthFilter extends ZFilter {
 	public void onAccessDenied(HttpServletRequest request, HttpServletResponse response) {
 		try {
 			response.sendError(403);
+			//response.sendRedirect(request.getContextPath()+"/403.html");
 		} catch (IOException e) {
 			Logger.error("用户访问了没有权限的目录,设置状态码403的时候出现错误!");
 			Logger.error(e.getMessage());

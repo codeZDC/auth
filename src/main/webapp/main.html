@@ -136,7 +136,23 @@
 							</ul>
 						</div>
 					</li>
-
+					<li class="layui-timeline-item"><i
+						class="layui-icon layui-timeline-axis">&#xe63f;</i>
+						<div class="layui-timeline-content layui-text">
+							<h3 class="layui-timeline-title">项目架构说明 :</h3>
+							<ul>
+								<li class="time">2018年6月12日15:40:11</li>
+								<li>项目采用动静分离,前端框架采用layui,通过异步调用后台接口完成渲染理</li>
+								<li>安全框架使用自定义框架,可通过在web.xml中配置布尔类型的urlControl控制对路径进行访问控制</li>
+								<li>角色配置权限树使用ztree插件,通过配置权限可对路径进行访问控制和菜单的动态显示,菜单动态显示原本想通过
+								登录角色获取相应的菜单保存到域中,但是sql太过复杂,就使用了自定义标签实现,相对简单</li>
+								<li>当然,在路径控制和菜单显示自定义标签中都需要对角色权限的比对,会频繁的操作数据库,为了提升性能,
+								我们需要将角色权限缓存起来,目前使用的是mybatis的二级缓存,针对mapper命名空间进行缓存,在用户授权修改的时候会清空缓存</li>
+							</ul>
+						</div>
+					</li>
+					
+					
 					<li class="layui-timeline-item"><i
 						class="layui-icon layui-timeline-axis">&#xe63f;</i>
 						<div class="layui-timeline-content layui-text">

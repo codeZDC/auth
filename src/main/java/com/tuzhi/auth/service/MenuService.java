@@ -72,11 +72,4 @@ public class MenuService {
 		// TODO Auto-generated method stub
 		return menuMapper.deleteByPrimaryKey(id);
 	}
-	
-	//根据角色id获取主页菜单
-	public List<MenuNode> getHomeMenu(String roleId) {
-		// TODO Auto-generated method stub
-		return menuMapper.getHomeMenu(roleId);
-	}
-
 }

@@ -22,5 +22,9 @@ public interface IResourceMapper extends Mapper<Resource> {
 	 * @CreateDate  2018-06-11 09:53:53
 	 */
 	List<Resource> findResourceList(Resource resource);
+
+	List<String> getPermissions(String roleId);
+
+	int deleteRoleResources(String rid);
 	
 }

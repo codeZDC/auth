@@ -84,12 +84,12 @@ $('#submit_btn_a').click(function(){
 		},
 		complete:function(){
 			$('#submit_btn_a').removeAttr('disabled');
-			//数据表格展示最新内容
-			tableIns.reload(option);
 			$('.cancel').trigger('click');
 			
 		},
 		success:function(res){
+			//数据表格展示最新内容
+			tableIns.reload(option);
 			if(res.success)
 				layer.msg(res.msg||"操作成功",{time:1000,icon:1});
 			else
@@ -118,12 +118,12 @@ $('#submit_btn_e').click(function(){
 		},
 		complete:function(){
 			$('#submit_btn_e').removeAttr('disabled');
-			//数据表格展示最新内容
-			tableIns.reload(option);
 			$('.cancel').trigger('click');
 			
 		},
 		success:function(res){
+			//数据表格展示最新内容
+			tableIns.reload(option);
 			if(res.success)
 				layer.msg(res.msg||"操作成功",{time:1000,icon:1});
 			else
@@ -148,10 +148,10 @@ function del(id){
 				return false;
 		},
 		complete:function(){
-			//数据表格展示最新内容
-			tableIns.reload(option);
 		},
 		success:function(res){
+			//数据表格展示最新内容
+			tableIns.reload(option);
 			if(res.success)
 				layer.msg(res.msg||"操作成功",{time:1000,icon:1});
 			else

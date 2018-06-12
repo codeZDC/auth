@@ -1,5 +1,7 @@
 package com.tuzhi.auth.base;
 
+import java.io.Serializable;
+
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -10,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  *
  * 2017年3月15日 下午5:06:11
  */
-public class BaseDomain{
+public class BaseDomain implements Serializable{
 	
 	@Transient
 	@JsonIgnore

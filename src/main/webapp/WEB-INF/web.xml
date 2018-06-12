@@ -6,7 +6,7 @@
 
 	<!-- 设置一个不存在的路径,才会请求到 -->
 	<welcome-file-list>
-		<welcome-file>/login.html</welcome-file>
+		<welcome-file>index</welcome-file>
 	</welcome-file-list>
 	
 	<error-page>
@@ -31,13 +31,13 @@
 		<filter-name>authFilter</filter-name>
 		<filter-class>com.tuzhi.auth.filter.AuthFilter</filter-class>
 		<init-param>
-			<description>不需要验证的路径,$a匹配以a开头的路径,b$匹配以b结尾的路径</description>
+			<description>不需要验证的路径,$a匹配以a开头的路径,b$匹配以b结尾的路径(栗子:$zz,login,logout$,)</description>
 			<param-name>excludes</param-name>
-			<param-value>$zz,login,logout$,/static/,/admin</param-value>
+			<param-value>/static/,/views/,/admin/,/login.html,/403,/404</param-value>
 		</init-param>
 		<init-param>
 			<param-name>urlControl</param-name>
-			<param-value>false</param-value>
+			<param-value>true</param-value>
 		</init-param>
 	</filter>
 	<filter-mapping>

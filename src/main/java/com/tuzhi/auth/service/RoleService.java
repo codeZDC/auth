@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.tuzhi.auth.mapper.IResourceMapper;
 import com.tuzhi.auth.mapper.IRoleMapper;
 import com.tuzhi.auth.common.TreeNode;
 import com.tuzhi.auth.domain.Role;
@@ -27,6 +28,8 @@ public class RoleService {
 	
 	@Autowired
 	private IRoleMapper roleMapper;
+	@Autowired
+	private IResourceMapper resourceMapper;
  
 	public PageInfo<Role> findRoleList(Role role) {
 		// TODO 分页查询
@@ -64,7 +67,7 @@ public class RoleService {
 		int r = roleMapper.deleteById(id);
 		if(r==0)
 			throw new BusinessException("不能删除最高权限管理员吗?");
-		roleMapper.deleteRoleResources(id);
+		resourceMapper.deleteRoleResources(id);
 		return r;
 	}
 
@@ -96,7 +99,7 @@ public class RoleService {
 	
 	public void setRoleResources(String rid, Integer[] ids) {
 		//首先删除以前的权限
-		roleMapper.deleteRoleResources(rid);
+		resourceMapper.deleteRoleResources(rid);
 		roleMapper.setRoleResources(rid,ids);
 		
 	}

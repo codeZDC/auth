@@ -75,8 +75,5 @@
 	WHERE NOT EXISTS (SELECT 1 FROM t_menu WHERE pid = m.id)
 	order by m.order_by
   </select>
-  
-  <select id="getHomeMenu" resultMap="menuNodeMap">
-		
-  </select>
+
 </mapper>

@@ -1,7 +1,9 @@
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="auth" uri="/com.tuzhi.auth" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>图智信息权限系统</title>
     <link rel="stylesheet" href="./static/layui/css/layui.css" media="all">
@@ -37,7 +39,7 @@
                         <dd><a href="javascript:;">安全设置</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item"><a href="logout"><i class="fa fa-sign-out" aria-hidden="true"></i> 注销</a></li>
+                <li class="layui-nav-item"><a href="admin/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> 注销</a></li>
             </ul>
         </div>
 
@@ -46,7 +48,7 @@
                 <div class="kit-side-fold"><i class="fa fa-navicon" aria-hidden="true"></i></div>
                 <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
                 <ul class="layui-nav layui-nav-tree" lay-filter="kitNavbar" kit-navbar>
-                
+                	
                     <li class="layui-nav-item">
                         <a href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span> 基础功能</span></a>
                         <dl class="layui-nav-child">
@@ -59,10 +61,18 @@
                     <li class="layui-nav-item layui-nav-itemed">
                         <a href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span> 系统维护</span></a>
                         <dl class="layui-nav-child">
+                        	<auth:hasPermission value="/user.html">
                             <dd><a href="javascript:;" kit-target data-options="{url:'views/sys/user.html',icon:'fa-user;',title:'用户管理',id:'6'}"><i class="fa fa-user"></i><span> 用户管理</span></a></dd>
+                        	</auth:hasPermission>
+							<auth:hasPermission value="/menu.html">
                             <dd><a href="javascript:;" kit-target data-options="{url:'views/sys/menu.html',icon:'fa-paperclip',title:'菜单管理',id:'71'}"><i class="fa fa-paperclip"></i><span> 菜单管理</span></a></dd>
+                        	</auth:hasPermission>
+                        	<auth:hasPermission value="/role.html">
                             <dd><a href="javascript:;" kit-target data-options="{url:'views/sys/role.html',icon:'fa-paperclip',title:'角色管理',id:'7'}"><i class="fa fa-paperclip"></i><span> 角色管理</span></a></dd>
+                        	</auth:hasPermission>
+                        	<auth:hasPermission value="/resource.html">
                             <dd><a href="javascript:;" kit-target data-options="{url:'views/sys/resource.html',icon:'fa-paperclip',title:'资源管理',id:'722'}"><i class="fa fa-paperclip"></i><span> 资源管理</span></a></dd>
+                        	</auth:hasPermission>
                         </dl>
                     </li>
                     
@@ -88,14 +98,12 @@
 
         <div class="layui-footer">
             <!-- 底部固定区域 -->
-            2017 &copy;
-            <a href="http://kit.zhengjinfan.cn/">kit.zhengjinfan.cn/</a> MIT license
+            2018 &copy;
+            <a href="http://kit.zhengjinfan.cn/">www.tuzhi.com</a> 图智 license
 
         </div>
     </div>
-    <script type="text/javascript">
-       
-    </script>
+    <script src="static/jquery/1.9.1/jquery.min.js"></script>
     <script src="./static/layui/layui.js"></script>
     <script>
         var message;
@@ -122,6 +130,12 @@
                 });
             });
         });
+        
+        //手动去除没有菜单的菜单项
+        $('.layui-nav-tree .layui-nav-item').each(function(per){
+        	if(!$(this).find('a[kit-target]')[0])
+        		$(this).hide(); 
+        })
     </script>
 </body>
 

@@ -10,6 +10,8 @@ public class Constants {
 
 	public static final String SESSION_USER = "SESSION_USER" ;
 	
+	public static final String SESSION_ROLEID = "SESSION_ROLEID" ;
+	
 	public static final String SESSION_MENU = "SESSION_MENU" ;
 
 }

@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tuzhi.auth.common.Constants;
+import com.tuzhi.auth.domain.ext.UserExt;
+import com.tuzhi.auth.mapper.IResourceMapper;
 import com.tuzhi.auth.mapper.UrlMapper;
 
 /**
@@ -21,19 +23,19 @@ import com.tuzhi.auth.mapper.UrlMapper;
 public class UrlController implements UrlControlResolver{
 
 	@Autowired
-	private UrlMapper urlMapper;
+	private IResourceMapper resourceMapper;
 	
 	@Override
 	public boolean isAccessUrl(HttpServletRequest request) {
 		String path = request.getServletPath();
-		String username = (String)request.getSession().getAttribute(Constants.SESSION_USER);
+		String roleId = (String)request.getSession().getAttribute(Constants.SESSION_ROLEID);
 		//获取用户的权限列表,判断当前访问路径是否有权限
-		List<String> permissions = urlMapper.getPermissions(username);
+		List<String> permissions = resourceMapper.getPermissions(roleId);
 		for (String string : permissions) {
 			if(path.equals(string))
 				return true;
 		}
-		System.err.println("用户没有权限访问该地址 : " + path);
+		System.err.println("用户("+roleId+")没有权限访问该地址 : " + path);
 		return false;
 	}
 

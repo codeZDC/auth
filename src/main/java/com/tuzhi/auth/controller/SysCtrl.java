@@ -36,15 +36,13 @@ public class SysCtrl extends BaseCtrl{
 
 	@Autowired
 	private UserService userService; 
-	@Autowired
-	private MenuService menuService;
 	
 	@RequestMapping("index")
 	public void index(HttpServletRequest request,HttpServletResponse response) throws IOException{
-		response.sendRedirect(request.getContextPath() + "/index.html?"+System.currentTimeMillis());
+		response.sendRedirect(request.getContextPath() + "/index.jsp?"+System.currentTimeMillis());
 	}
 	
-	@PostMapping("login")
+	@PostMapping("admin/login")
 	@ResponseBody
 	public Res login(String username , String password){
 		
@@ -55,18 +53,16 @@ public class SysCtrl extends BaseCtrl{
 		if(ext == null || !Md5Utils.match(password, ext.getPassword()))
 			throw new BusinessException("用户名或密码不正确!");
 		session.setAttribute(Constants.SESSION_USER,ext);    //将用户设置到session中
-		//获取用户菜单,,将其设置到session中
+		session.setAttribute(Constants.SESSION_ROLEID, ext.getRoleId());
 		
-		List<MenuNode> menuNodes = menuService.getHomeMenu(ext.getRoleId());
-		session.setAttribute(Constants.SESSION_MENU,menuNodes);    
 		return Res.success("登录成功!");
 	}
 	
-	@RequestMapping("logout")
+	@RequestMapping("admin/logout")
 	public void logout(HttpServletRequest request,HttpServletResponse response) throws IOException{
 		//request.getSession().removeAttribute(Constants.SESSION_USER);
 		session.invalidate();
-		response.sendRedirect(request.getContextPath() + "/index.html?"+System.currentTimeMillis());
+		response.sendRedirect(request.getContextPath() + "/index.jsp?"+System.currentTimeMillis());
 	}
 	
 }

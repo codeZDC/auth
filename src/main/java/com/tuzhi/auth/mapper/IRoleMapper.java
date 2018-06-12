@@ -30,9 +30,6 @@ public interface IRoleMapper extends Mapper<Role> {
 
 	int setRoleResources(String rid, Integer[] ids);
 	
-	@Delete("delete from t_role_resource where role_id = #{zdc}")
-	int deleteRoleResources(String rid);
-
 	@Delete("delete from role where id = #{id} and deletable!=0 ")
 	int deleteById(String id);
 	
