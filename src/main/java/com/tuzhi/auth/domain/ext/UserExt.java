@@ -17,7 +17,7 @@ public class UserExt extends User{
 	//角色名称
 	private String roleName;
 	//用户账号
-	private String account;
+	private String username;
 	//用户密码
 	private String password;
 	
@@ -33,11 +33,11 @@ public class UserExt extends User{
 	public void setRoleName(String roleName) {
 		this.roleName = roleName;
 	}
-	public String getAccount() {
-		return account;
+	public String getUsername() {
+		return username;
 	}
-	public void setAccount(String account) {
-		this.account = account;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	public String getPassword() {
 		return password;

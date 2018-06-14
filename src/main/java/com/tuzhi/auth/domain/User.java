@@ -4,6 +4,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tuzhi.auth.base.BaseDomain;
 
 
@@ -90,6 +91,7 @@ public class User extends BaseDomain {
         return registtime;
     }
     /**registtime**/
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone="GMT+8")  //取日期时使用  
     public void setRegisttime(java.util.Date registtime){
         this.registtime= registtime;
     }

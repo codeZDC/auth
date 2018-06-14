@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.tuzhi.auth.mapper.IUserMapper;
 import com.tuzhi.auth.mapper.UrlMapper;
 
 /**
@@ -20,10 +21,17 @@ public class TestCache {
 
 	@Autowired
 	private UrlMapper mapper;
+	@Autowired
+	private IUserMapper userMapper;
 	
-	@Test
 	public void cache(){
 		mapper.getPermissions(null);
+	}
+	
+	@Test
+	public void repassword(){
+		System.err.println("********************");
+		System.err.println(userMapper.repassword("zz", "321", "321"));
 	}
 	
 }

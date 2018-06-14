@@ -15,7 +15,7 @@
 	</error-page>
 	<error-page>
 		<error-code>403</error-code>
-		<location>/403.html</location>
+		<location>/403.jsp</location>
 	</error-page>
 
 
@@ -33,7 +33,9 @@
 		<init-param>
 			<description>不需要验证的路径,$a匹配以a开头的路径,b$匹配以b结尾的路径(栗子:$zz,login,logout$,)</description>
 			<param-name>excludes</param-name>
-			<param-value>/static/,/views/,/admin/,/login.html,/403,/404</param-value>
+			<!-- <param-value>/admin/</param-value> 动静分离之后静态资源不需要过滤-->
+			<!-- <param-value>/admin/,/static/,login.html,/views/,/403</param-value> -->
+			<param-value>/</param-value>
 		</init-param>
 		<init-param>
 			<param-name>urlControl</param-name>

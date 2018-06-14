@@ -8,7 +8,10 @@ layui.use('table', function() {
 			,
 			page : true // 开启分页
 			,
-			
+			request: {
+				  pageName: 'pageNum' //页码的参数名称，默认：page
+				  ,limitName: 'pageSize' //每页数据量的参数名，默认：limit
+				} ,
 			cols : [ [ // 表头
 			{field : 'id',title : 'ID',sort : true}, 
 			{field : 'name',title : '菜单名称',sort : true}, 
@@ -52,7 +55,11 @@ $(document).on('click','.edit_btn,.view_btn,.del_btn',function(){
 	if($(this).hasClass('edit_btn')){
 		edit(id);
 	}else if($(this).hasClass('del_btn')){
-		del(id);
+		layer.confirm('确认删除吗？', {
+		  btn: ['确认', '取消']
+		}, function(index, layero){
+			del(id);
+		});
 	}else
 		layer.msg('功能升级中...');
 })
@@ -142,7 +149,7 @@ $('#submit_btn_a').click(function(){
 		url : path + '/menu/save',
 		dataType:'json',
 		type:'post',
-		data : $('#add_form').zdata(),
+		data : $('#add_form').serialize(),
 		beforeSend:function(){
 			console.log('start to check...');
 			$('#add_form').check();
@@ -178,7 +185,7 @@ $('#submit_btn_e').click(function(){
 		url : path + '/menu/edit',
 		dataType:'json',
 		type:'post',
-		data : $('#edit_form').zdata(),
+		data : $('#edit_form').serialize(),
 		beforeSend:function(){
 			console.log('start to check...');
 			$('#edit_form').check();
@@ -214,12 +221,7 @@ function del(id){
 		dataType:'json',
 		type:'post',
 		data : {id:id},
-		beforeSend:function(){
-			if(!confirm('是否删除!'))
-				return false;
-		},
 		complete:function(){
-			//数据表格展示最新内容
 			selective = false ; 
 		},
 		success:function(res){

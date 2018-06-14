@@ -1,20 +1,22 @@
 package com.tuzhi.auth.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.github.pagehelper.PageInfo;
 import com.tuzhi.auth.base.BaseCtrl;
+import com.tuzhi.auth.common.Constants;
 import com.tuzhi.auth.common.LayUiData;
+import com.tuzhi.auth.common.Res;
+import com.tuzhi.auth.domain.Account;
 import com.tuzhi.auth.domain.User;
+import com.tuzhi.auth.domain.ext.UserExt;
+import com.tuzhi.auth.exception.BusinessException;
 import com.tuzhi.auth.service.UserService;
 
 /**
@@ -23,7 +25,7 @@ import com.tuzhi.auth.service.UserService;
  * @author 郑德超
  * @CreateDate 2018-06-06 15:13:12
  */
-@Controller
+@RestController
 @RequestMapping("/user")
 public class UserCtrl extends BaseCtrl {
 
@@ -38,7 +40,6 @@ public class UserCtrl extends BaseCtrl {
 	 * @CreateDate  2018-06-06 15:13:12
 	 */
 	@RequestMapping("/list")
-	@ResponseBody
 	public LayUiData findUserList(User user){
 		PageInfo<User> page = userService.findUserList(user);
 		return layUI(page);
@@ -52,7 +53,6 @@ public class UserCtrl extends BaseCtrl {
 	 * @CreateDate  2018-06-06 15:13:12
 	 */
 	@RequestMapping("/get")
-	@ResponseBody
 	public User getUserById(String Id){
 		User user = userService.getUserById(Id);
 		return user;
@@ -67,10 +67,9 @@ public class UserCtrl extends BaseCtrl {
 	 * @CreateDate  2018-06-06 15:13:12
 	 */
 	@RequestMapping("save")
-	@ResponseBody
-	public Map<String, Object> saveUser(User user){
+	public Map<String, Object> saveUser(User user,Account account,String roleId){
 		Map<String, Object> map = new HashMap<String, Object>();
-		boolean flag = userService.saveUser(user);
+		boolean flag = userService.saveUser(user,account,roleId);
 		map.put("success", flag);
 		map.put("msg", "新增"+(flag?"成功":"失败"));
 		return map;
@@ -85,30 +84,27 @@ public class UserCtrl extends BaseCtrl {
 	 * @CreateDate  2018-06-06 15:13:12
 	 */
 	@RequestMapping("edit")
-	@ResponseBody
-	public Map<String, Object> editUser(User user){
+	public Map<String, Object> editUser(User user,Account account,String roleId){
 		Map<String, Object> map = new HashMap<String, Object>();
-		boolean flag = userService.editUser(user);
+		boolean flag = userService.editUser(user,account,roleId);
 		map.put("success", flag);
 		map.put("msg", "修改"+(flag?"成功":"失败"));
 		return map;
 	}
 	
-	
-	 /**
-	 * @title:delUser
-	 * @description: 删除
-	 * @author 郑德超
-	 * @param ids	主键ID集合
-	 * @CreateDate  2018-06-06 15:13:12
-	 */
-	@RequestMapping("del")
-	@ResponseBody
-	public Map<String, Object> delUser(@RequestParam(value = "ids[]",required = false,defaultValue = "") List<String> ids){
-		Map<String, Object> map = new HashMap<String, Object>();
-		boolean flag = userService.delUser(ids);
-		map.put("success", flag);
-		map.put("msg", "删除"+(flag?"成功":"失败"));
-		return map;
+	//根据id删除用户
+	@PostMapping("deleteById")
+	public Res deleteById(String id){
+		int i = userService.deleteById(id);
+		if(i<1)
+			throw new BusinessException("操作不当,没有删除相应的用户!");
+		return Res.success();
+	}
+
+	@PostMapping("admin/repassword")
+	public Res repassword(String password,String newPassword){
+		UserExt ext = (UserExt)session.getAttribute(Constants.SESSION_USER);
+		userService.repassword(ext.getUsername(), password,newPassword);
+		return Res.success("密码修改成功");
 	}
 }

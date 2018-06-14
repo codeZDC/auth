@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tuzhi.auth.mapper.ILogLoginMapper">
+  <resultMap id="LogLoginResultMap" type="com.tuzhi.auth.domain.LogLogin">
+        <id column="id" property="id" />
+    <result column="username" property="username" />
+    <result column="ip" property="ip" />
+    <result column="login_time" property="loginTime" />
+
+  </resultMap>
+  <sql id="column_Where">
+  	<trim prefix="WHERE" prefixOverrides="AND|OR">
+    	    	<if test="id != null">and id=#{id}</if>
+    	<if test="username != null and username != '' ">and username=#{username}</if>
+    	<if test="ip != null and ip != '' ">and ip=#{ip}</if>
+    	<if test="loginTime != null">and login_time=#{loginTime}</if>
+
+    </trim>
+  </sql>
+  <sql id="column_List">
+    id,username,ip,login_time
+  </sql>
+  
+  <!--
+  	功能：分页查询
+  -->
+  <select id="findLogLoginList" parameterType="com.tuzhi.auth.domain.LogLogin" resultMap="LogLoginResultMap">
+    select	<include refid="column_List" />
+    from t_log_login
+    <include refid="column_Where" />
+    <if test="sortOrder !=null and sortOrder !='' and sortName != null and sortName != ''">
+    	order by 
+    	    	<if test="'id' == sortName">  id ${sortOrder } </if>
+    	<if test="'username' == sortName">  username ${sortOrder } </if>
+    	<if test="'ip' == sortName">  ip ${sortOrder } </if>
+    	<if test="'loginTime' == sortName">  login_time ${sortOrder } </if>
+
+    </if>
+    
+  </select>
+  
+</mapper>

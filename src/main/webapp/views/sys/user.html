@@ -22,45 +22,179 @@
 		</div>
 		<table id="data_table"></table>
 	</div>
-	<div  class="add_div modal hide main">
-		<button class="layui-btn layui-btn-sm layui-btn-normal cancel"><i class="layui-icon">  返回</i></button>
+	<!-- 添加 -->
+	<div id="add_div" class="modal hide main">
+		<button class="layui-btn layui-btn-sm layui-btn-normal cancel">
+			<i class="layui-icon"> 返回</i>
+		</button>
 		<fieldset class="layui-elem-field layui-field-title site-title">
 			<legend>
-				<a name="use"> 添加用户 </a>
+				<a name="use"> 添加用户 </a> 
 			</legend>
 		</fieldset>
-		
 		<div class="site-text site-block">
-			<form class="layui-form" action="">
+			<form id="add_form">
 				<div class="layui-form-item">
-					<label class="layui-form-label">用户名</label>
+					<label class="layui-form-label">昵称</label>
 					<div class="layui-input-inline">
-						<input type="text" name="realname" 
-							lay-verify="required" placeholder="请输入密码"
-							autocomplete="off" class="layui-input">
+						<input type="text" check="昵称" name="realname" placeholder="请输入"
+							maxlength="16" autocomplete="off" class="layui-input">
 					</div>
-					<div class="layui-form-mid layui-word-aux">辅助文字</div>
+					<div class="layui-form-mid layui-word-aux">*</div>
 				</div>
 				<div class="layui-form-item">
-					<label class="layui-form-label">备注</label>
+					<label class="layui-form-label">账号</label>
 					<div class="layui-input-inline">
-						<input type="description" name="description" 
-							lay-verify="required" lay-vertype="tips" placeholder="请输入描述"
-							autocomplete="off" class="layui-input">
+						<input type="text" check="账号" name="username" placeholder="请输入"
+							maxlength="16" autocomplete="off" class="layui-input">
 					</div>
-					<div class="layui-form-mid layui-word-aux">辅助文字</div>
+					<div class="layui-form-mid layui-word-aux">*</div>
 				</div>
-
+				<div class="layui-form-item">
+					<label class="layui-form-label">密码</label>
+					<div class="layui-input-inline">
+						<input type="text"  check="密码" name="password" placeholder="请输入"
+							maxlength="32" autocomplete="off" class="layui-input">
+					</div>
+					<div class="layui-form-mid layui-word-aux">*</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">角色</label>
+					<div class="layui-input-inline layui-form-select">
+						<select name="roleId" check="角色" class="layui-input">
+				        	<option value="">--请选择--</option>
+				        </select>
+					</div>
+					<div class="layui-form-mid layui-word-aux">*</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">性别</label>
+					<div class="layui-input-inline layui-form-select">
+						<select name="sex" check="性别" class="layui-input">
+				        	<option value="">--请选择--</option>
+				        	<option value="1">男</option>
+				        	<option value="0">女</option>
+				        </select>
+					</div>
+					<div class="layui-form-mid layui-word-aux">*</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">电话</label>
+					<div class="layui-input-inline">
+						<input type="text" name="tel" placeholder="请输入"
+							maxlength="16" autocomplete="off" class="layui-input">
+					</div>
+					<div class="layui-form-mid layui-word-aux">*</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">邮箱</label>
+					<div class="layui-input-inline">
+						<input type="text" name="email" placeholder="请输入"
+							maxlength="16" autocomplete="off" class="layui-input">
+					</div>
+					<div class="layui-form-mid layui-word-aux">*</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">描述</label>
+					<div class="layui-input-inline">
+						<textarea class="layui-textarea" name="description" maxlength="50"></textarea>
+					</div>
+					<div class="layui-form-mid layui-word-aux">*</div>
+				</div>
 				<div class="layui-form-item">
 					<div class="layui-input-block">
-						<button type="button" class="layui-btn" lay-submit="" lay-filter="add_submit">立即提交</button>
+						<button type="button" class="layui-btn"  id="submit_btn_a">立即提交</button>
 						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
 					</div>
 				</div>
 			</form>
 		</div>
-
 	</div>
+	<!-- 添加↑ -->
+	<!-- 编辑↓ -->
+	<div id="edit_div" class="modal hide main">
+		<button class="layui-btn layui-btn-sm layui-btn-normal cancel">
+			<i class="layui-icon"> 返回</i>
+		</button>
+		<fieldset class="layui-elem-field layui-field-title site-title">
+			<legend>
+				<a name="use"> 编辑用户 </a> 
+			</legend>
+		</fieldset>
+		<div class="site-text site-block">
+			<form id="edit_form">
+				<input type="hidden" name="id"> 
+				<div class="layui-form-item">
+					<label class="layui-form-label">昵称</label>
+					<div class="layui-input-inline">
+						<input type="text" check="昵称" name="realname" placeholder="请输入"
+							maxlength="16" autocomplete="off" class="layui-input">
+					</div>
+					<div class="layui-form-mid layui-word-aux">*</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">账号</label>
+					<div class="layui-input-inline">
+						<input type="text" check="账号" name="username" placeholder="请输入"
+							maxlength="16" autocomplete="off" class="layui-input">
+					</div>
+					<div class="layui-form-mid layui-word-aux">*</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">角色</label>
+					<div class="layui-input-inline layui-form-select">
+						<select name="roleId" check="角色" class="layui-input">
+				        	<option value="">--请选择--</option>
+				        </select>
+					</div>
+					<div class="layui-form-mid layui-word-aux">*</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">性别</label>
+					<div class="layui-input-inline layui-form-select">
+						<select name="sex" check="性别" class="layui-input">
+				        	<option value="">--请选择--</option>
+				        	<option value="1">男</option>
+				        	<option value="0">女</option>
+				        </select>
+					</div>
+					<div class="layui-form-mid layui-word-aux">*</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">电话</label>
+					<div class="layui-input-inline">
+						<input type="text" name="tel" placeholder="请输入"
+							maxlength="16" autocomplete="off" class="layui-input">
+					</div>
+					<div class="layui-form-mid layui-word-aux">*</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">邮箱</label>
+					<div class="layui-input-inline">
+						<input type="text" name="email" placeholder="请输入"
+							maxlength="16" autocomplete="off" class="layui-input">
+					</div>
+					<div class="layui-form-mid layui-word-aux">*</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">描述</label>
+					<div class="layui-input-inline">
+						<textarea class="layui-textarea" name="description" maxlength="50"></textarea>
+					</div>
+					<div class="layui-form-mid layui-word-aux">*</div>
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-input-block">
+						<button type="button" class="layui-btn"  id="submit_btn_e">立即提交</button>
+						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<!-- 编辑↑ -->
+	
+	
 
 	<!-- 工具栏  -->
 	<div id="toolBar" style="display: none;">
@@ -72,6 +206,7 @@
 	<script src="../../static/layui/layui.js"></script>
 	<script src="../../static/jquery/1.9.1/jquery.min.js"></script>
 	<script src="../../static/modules/common.js"></script>
+	<script type="text/javascript" src="../../static/modules/zUtil.js"></script>
 	<script type="text/javascript" src="user.js"></script>
 </body>
 </html>

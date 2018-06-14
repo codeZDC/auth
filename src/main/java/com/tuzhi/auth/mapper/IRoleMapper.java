@@ -1,8 +1,10 @@
 package com.tuzhi.auth.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Select;
 
 import com.tuzhi.auth.common.TreeNode;
 import com.tuzhi.auth.domain.Role;
@@ -32,5 +34,8 @@ public interface IRoleMapper extends Mapper<Role> {
 	
 	@Delete("delete from role where id = #{id} and deletable!=0 ")
 	int deleteById(String id);
+	
+	@Select("select id ,name from role")
+	List<Map<String, String>> getRoles();
 	
 }

@@ -51,7 +51,11 @@ $(document).on('click','.edit_btn,.view_btn,.del_btn',function(){
 	if($(this).hasClass('edit_btn')){
 		edit(id);
 	}else if($(this).hasClass('del_btn')){
-		del(id);
+		layer.confirm('确认删除吗？', {
+		  btn: ['确认', '取消']
+		}, function(index, layero){
+			del(id);
+		});
 	}else
 		layer.msg('功能升级中...');
 })
@@ -143,10 +147,6 @@ function del(id){
 		dataType:'json',
 		type:'post',
 		data : {id:id},
-		beforeSend:function(){
-			if(!confirm('是否删除!'))
-				return false;
-		},
 		complete:function(){
 		},
 		success:function(res){

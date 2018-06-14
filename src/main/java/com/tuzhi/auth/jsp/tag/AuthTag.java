@@ -38,7 +38,8 @@ public class AuthTag extends SimpleTagSupport{
 		WebApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(pageContext.getServletContext());
 		IResourceMapper resourceMapper = context.getBean(IResourceMapper.class);
 		List<String> permissions = resourceMapper.getPermissions((String)pageContext.getSession().getAttribute(Constants.SESSION_ROLEID));
-
+		
+		//body.invoke(null);
 		for (String string : permissions) {
 			if(value.equals(string)){
 				body.invoke(null);

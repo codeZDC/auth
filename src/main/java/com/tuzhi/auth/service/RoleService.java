@@ -1,6 +1,7 @@
 package com.tuzhi.auth.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -100,7 +101,14 @@ public class RoleService {
 	public void setRoleResources(String rid, Integer[] ids) {
 		//首先删除以前的权限
 		resourceMapper.deleteRoleResources(rid);
+		if(ids==null)
+			ids = new Integer[]{-1};
 		roleMapper.setRoleResources(rid,ids);
 		
+	}
+
+	public List<Map<String, String>> getRoles() {
+		// TODO Auto-generated method stub
+		return roleMapper.getRoles();
 	}
 }

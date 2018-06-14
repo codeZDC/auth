@@ -55,7 +55,11 @@ $(document).on('click','.edit_btn,.view_btn,.del_btn',function(){
 	if($(this).hasClass('edit_btn')){
 		edit(id);
 	}else if($(this).hasClass('del_btn')){
-		del(id);
+		layer.confirm('确认删除吗？', {
+		  btn: ['确认', '取消']
+		}, function(index, layero){
+			del(id);
+		});
 	}else
 		layer.msg('功能升级中...');
 })
@@ -111,7 +115,7 @@ $('#submit_btn_a').click(function(){
 		url : path + '/resource/save',
 		dataType:'json',
 		type:'post',
-		data : $('#add_form').zdata(),
+		data : $('#add_form').serialize(),
 		beforeSend:function(){
 			console.log('start to check...');
 			$('#add_form').check();
@@ -145,7 +149,7 @@ $('#submit_btn_e').click(function(){
 		url : path + '/resource/edit',
 		dataType:'json',
 		type:'post',
-		data : $('#edit_form').zdata(),
+		data : $('#edit_form').serialize(),
 		beforeSend:function(){
 			console.log('start to check...');
 			$('#edit_form').check();
@@ -180,10 +184,6 @@ function del(id){
 		dataType:'json',
 		type:'post',
 		data : {id:id},
-		beforeSend:function(){
-			if(!confirm('是否删除!'))
-				return false;
-		},
 		complete:function(){
 		},
 		success:function(res){

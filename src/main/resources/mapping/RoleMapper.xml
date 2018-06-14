@@ -46,7 +46,7 @@
 		ORDER BY order_by
   </select>
   <insert id="setRoleResources">
-  		INSERT INTO t_role_resource (role_id , resource_id) 
+		INSERT INTO t_role_resource (role_id , resource_id)
   		<foreach collection="param2" open="values" separator="," item="reid">
   			(#{param1},#{reid})
   		</foreach>

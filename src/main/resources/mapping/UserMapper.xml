@@ -20,50 +20,54 @@
   </resultMap>
   <sql id="column_Where">
   	<trim prefix="WHERE" prefixOverrides="AND|OR">
-    	    	<if test="id != null and id != '' ">and id=#{id}</if>
-    	<if test="realname != null and realname != '' ">and realname=#{realname}</if>
-    	<if test="sex != null">and sex=#{sex}</if>
-    	<if test="status != null">and status=#{status}</if>
-    	<if test="tel != null and tel != '' ">and tel=#{tel}</if>
-    	<if test="registtime != null">and registtime=#{registtime}</if>
-    	<if test="birth != null">and birth=#{birth}</if>
-    	<if test="email != null and email != '' ">and email=#{email}</if>
-    	<if test="description != null and description != '' ">and description=#{description}</if>
-
+    	<if test="1==1 ">	AND a.`UserId` = u.`Id` 
+					    	AND ur.`UserId` = u.`Id` 
+							AND ur.`roleId` = r.`Id`</if>
+    	<if test="id != null and id != '' ">and u.id=#{id}</if>
+    	<if test="realname != null and realname != '' ">and u.realname=#{realname}</if>
+    	<if test="sex != null">and u.sex=#{sex}</if>
+    	<if test="status != null">and u.status=#{status}</if>
+    	<if test="tel != null and tel != '' ">and u.tel=#{tel}</if>
+    	<if test="registtime != null">and u.registtime=#{registtime}</if>
+    	<if test="birth != null">and u.birth=#{birth}</if>
+    	<if test="email != null and email != '' ">and u.email=#{email}</if>
+    	<if test="description != null and description != '' ">and u.description=#{description}</if>
     </trim>
   </sql>
   <sql id="column_List">
     id,realname,sex,status,tel,registtime,birth,email,description
   </sql>
   <sql id="column_List_u">
-    u.realname,u.sex,u.status,u.tel,u.registtime,u.birth,u.email,u.description
+    u.id,u.realname,u.sex,u.tel,u.registtime,u.email,u.description
   </sql>
   
   <!--
   	功能：分页查询
   -->
-  <select id="findUserList" parameterType="com.tuzhi.auth.domain.User" resultMap="UserResultMap">
-    select	<include refid="column_List" />
-    from user
+  <select id="findUserList" parameterType="com.tuzhi.auth.domain.User" resultMap="extMap">
+    SELECT a.`UserName` username,r.`Id` roleId,r.`Name` roleName,
+	<include refid="column_List_u" />
+	FROM account a ,USER u ,user_role ur ,role r
+	
     <include refid="column_Where" />
     order by registtime
     <if test="sortOrder !=null and sortOrder !='' and sortName != null and sortName != ''">
     	order by 
-    	<if test="'id' == sortName">  id ${sortOrder } </if>
-    	<if test="'realname' == sortName">  realname ${sortOrder } </if>
-    	<if test="'sex' == sortName">  sex ${sortOrder } </if>
-    	<if test="'status' == sortName">  status ${sortOrder } </if>
-    	<if test="'tel' == sortName">  tel ${sortOrder } </if>
-    	<if test="'registtime' == sortName">  registtime ${sortOrder } </if>
-    	<if test="'birth' == sortName">  birth ${sortOrder } </if>
-    	<if test="'email' == sortName">  email ${sortOrder } </if>
-    	<if test="'description' == sortName">  description ${sortOrder } </if>
+    	<if test="'id' == sortName">  u.id ${sortOrder } </if>
+    	<if test="'realname' == sortName">  u.realname ${sortOrder } </if>
+    	<if test="'sex' == sortName">  u.sex ${sortOrder } </if>
+    	<if test="'status' == sortName">  u.status ${sortOrder } </if>
+    	<if test="'tel' == sortName">  u.tel ${sortOrder } </if>
+    	<if test="'registtime' == sortName">  u.registtime ${sortOrder } </if>
+    	<if test="'birth' == sortName">  u.birth ${sortOrder } </if>
+    	<if test="'email' == sortName">  u.email ${sortOrder } </if>
+    	<if test="'description' == sortName">  u.description ${sortOrder } </if>
     </if>
   </select>
   
   <!-- 根据username获取用户信息 -->
   <select id="getUserByUsername" parameterType="string" resultMap="extMap">
-		SELECT a.`UserName` account,a.`Password` `password`,r.`Id` roleId,r.`Name` roleName,
+		SELECT a.`UserName` username,a.`Password` `password`,r.`Id` roleId,r.`Name` roleName,
 		<include refid="column_List_u" />
 		FROM account a ,USER u ,user_role ur ,role r
 		WHERE a.`UserId` = u.`Id` AND ur.`UserId` = u.`Id` 
